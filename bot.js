@@ -5,7 +5,6 @@ const bot = new rtmApiClient(process.env.SLACK_API_KEY);
 const RTM_EVENTS = require('@slack/client').RTM_EVENTS;
 const CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
 const createScreenshot = require('./tasks/createScreenshot');
-const getPageSpeed = require('./tasks/pageSpeed');
 const webApiClient = require('@slack/client').WebClient;
 const web = new webApiClient(process.env.SLACK_API_KEY);
 
@@ -46,9 +45,6 @@ bot.on(RTM_EVENTS.MESSAGE, (message) => {
         return; 
       }
       createScreenshot(web, bot, website, channel, device);
-      break;
-    case "pagespeed":
-      getPageSpeed(bot, channel, website.match(/<(.*)\|/).pop());
       break;
   }
 });
